@@ -3,7 +3,7 @@ import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View } from 'rea
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 
-export default function HomeScreen(props) {
+export default function Profile(props) {
 
     const [entityText, setEntityText] = useState('')
     const [entities, setEntities] = useState([])
@@ -74,7 +74,7 @@ export default function HomeScreen(props) {
                     autoCapitalize="none"
                 />
                 <TouchableOpacity style={styles.button} onPress={onAddButtonPress}>
-                    <Text style={styles.buttonText}>Home</Text>
+                    <Text style={styles.buttonText}>Profile</Text>
                 </TouchableOpacity>
             </View>
             { entities && (

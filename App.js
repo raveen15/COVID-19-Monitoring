@@ -1,14 +1,17 @@
 import 'react-native-gesture-handler';
 import React, { useEffect, useState } from 'react'
+import {StyleSheet, Text, View, Image, TouchableOpacity} from "react-native";
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import { firebase } from './src/firebase/config'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, RegistrationScreen } from './src/screens'
+import { LoginScreen, HomeScreen, RegistrationScreen, Settings, Profile, DataHistory } from './src/screens'
 import {decode, encode} from 'base-64'
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
 
 const Stack = createStackNavigator();
+const Tab = createMaterialBottomTabNavigator();
 
 export default function App() {
 
@@ -42,12 +45,97 @@ export default function App() {
     )
   }
 
+  function HomeTabs(){
+    return(
+      <Tab.Navigator>
+        <>
+          <Tab.Screen name="Home"
+          options={{
+                    tabBarIcon: ({focused}) => (
+                        <View style = {{alignItems: 'center', justifyContent: 'center'}}>
+                            <Image
+                                source={require('./assets/home.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 20,
+                                    height: 20,
+                                    tintColor: focused ? '#FFFFFF' : '#FFFFFF',
+                                }}
+                            />
+                        </View>   
+                    ),
+                }}
+          >
+            {props => <HomeScreen {...props} extraData={user} />}
+          </Tab.Screen>
+          <Tab.Screen name="Data History"
+          options={{
+                    tabBarIcon: ({focused}) => (
+                        <View style = {{alignItems: 'center', justifyContent: 'center'}}>
+                            <Image
+                                source={require('./assets/history.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 20,
+                                    height: 20,
+                                    tintColor: focused ? '#FFFFFF' : '#FFFFFF',
+                                }}
+                            />
+                        </View>   
+                    ),
+                }} 
+          >
+            {props => <DataHistory {...props} extraData={user} />}
+          </Tab.Screen>
+          <Tab.Screen name="Profile"
+          options={{
+                    tabBarIcon: ({focused}) => (
+                        <View style = {{alignItems: 'center', justifyContent: 'center'}}>
+                            <Image
+                                source={require('./assets/profile.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 20,
+                                    height: 20,
+                                    tintColor: focused ? '#FFFFFF' : '#FFFFFF',
+                                }}
+                            />
+                        </View>   
+                    ),
+                }}
+          >
+            {props => <Profile {...props} extraData={user} />}
+          </Tab.Screen>
+          <Tab.Screen name="Settings"
+          options={{
+                    tabBarIcon: ({focused}) => (
+                        <View style = {{alignItems: 'center', justifyContent: 'center'}}>
+                            <Image
+                                source={require('./assets/settings.png')}
+                                resizeMode="contain"
+                                style={{
+                                    width: 20,
+                                    height: 20,
+                                    tintColor: focused ? '#FFFFFF' : '#FFFFFF',
+                                }}
+                            />
+                        </View>   
+                    ),
+                }}
+          >
+            {props => <Settings {...props} extraData={user} />}
+          </Tab.Screen>
+        </>
+      </Tab.Navigator>
+    );
+  }
+
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        { user ? (
-          <Stack.Screen name="Home">
-            {props => <HomeScreen {...props} extraData={user} />}
+          { user ? (
+          <Stack.Screen name="COVID-19 Monitoring">
+            {props => <HomeTabs {...props} extraData={user} />}
           </Stack.Screen>
         ) : (
           <>

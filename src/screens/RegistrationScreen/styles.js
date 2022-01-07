@@ -44,7 +44,8 @@ export default StyleSheet.create({
     footerView: {
         flex: 1,
         alignItems: "center",
-        marginTop: 20
+        marginTop: 20,
+        marginBottom: 20
     },
     footerText: {
         fontSize: 16,
