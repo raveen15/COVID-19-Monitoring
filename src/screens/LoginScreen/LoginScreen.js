@@ -47,6 +47,7 @@ export default function LoginScreen({navigation}) {
                 <Image
                     style={styles.logo}
                     source={require('../../../assets/icon.png')}
+                    resizeMode="contain"
                 />
                 <TextInput
                     style={styles.input}
