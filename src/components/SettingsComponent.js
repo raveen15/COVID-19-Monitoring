@@ -8,8 +8,8 @@ import Container from './Container/index'
 
 
 
-const SettingsComponent = ({settingsOptions}) => {
-  const navigation = useNavigation();
+const SettingsComponent = ({settingsOptions, navigation}) => {
+  //const navigation = useNavigation();
   return(
     <ScrollView style={{backgroundColor: colors.white}}>
       {settingsOptions.map(({title, subTitle, onPress}, index) => (

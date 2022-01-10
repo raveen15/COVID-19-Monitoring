@@ -7,9 +7,9 @@ import { firebase } from '../../firebase/config'
 import SettingsComponent from '../../components/SettingsComponent';
 
 
-
-const Settings = () => {
-  const navigation = useNavigation();
+export default function Settings({navigation}) {
+  
+  //const navigation = useNavigation();
   const settingsOptions=[
     {title: 'Sensors', subTitle: 'Configure sensors', onPress: () => {}},
     {title: 'Personal Information', subTitle: 'Edit personal information', onPress: () => {}},
@@ -19,6 +19,5 @@ const Settings = () => {
     }}
   ]
   return <SettingsComponent settingsOptions={settingsOptions} />;
+  
 }
-
-export default Settings;
