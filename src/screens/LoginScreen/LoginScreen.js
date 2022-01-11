@@ -28,7 +28,7 @@ export default function LoginScreen({navigation}) {
                             return;
                         }
                         const user = firestoreDocument.data()
-                        navigation.navigate('COVID-19 Monitoring')
+                        navigation.navigate('COVID-19 Monitoring', {user: user})
                     })
                     .catch(error => {
                         alert(error)

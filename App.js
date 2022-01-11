@@ -49,7 +49,7 @@ export default function App() {
     return(
       <Tab.Navigator initialRouteName = "Home">
         <>
-          <Tab.Screen name="Home" component={HomeScreen}
+          <Tab.Screen name="Home"
           options={{
                     tabBarIcon: ({focused}) => (
                         <View style = {{alignItems: 'center', justifyContent: 'center'}}>
@@ -65,8 +65,10 @@ export default function App() {
                         </View>   
                     ),
                 }}
-          />
-          <Tab.Screen name="Data History" component={DataHistory}
+          >
+            {props => <HomeScreen {...props} extraData={user} />}
+          </Tab.Screen>
+          <Tab.Screen name="Data History"
           options={{
                     tabBarIcon: ({focused}) => (
                         <View style = {{alignItems: 'center', justifyContent: 'center'}}>
@@ -82,8 +84,10 @@ export default function App() {
                         </View>   
                     ),
                 }} 
-          />
-          <Tab.Screen name="Profile" component={Profile}
+          >
+            {props => <DataHistory {...props} extraData={user} />}
+          </Tab.Screen>
+          <Tab.Screen name="Profile"
           options={{
                     tabBarIcon: ({focused}) => (
                         <View style = {{alignItems: 'center', justifyContent: 'center'}}>
@@ -99,8 +103,10 @@ export default function App() {
                         </View>   
                     ),
                 }}
-          />
-          <Tab.Screen name="Settings" component={Settings}
+          >
+            {props => <Profile {...props} extraData={user} />}
+          </Tab.Screen>
+          <Tab.Screen name="Settings"
           options={{
                     tabBarIcon: ({focused}) => (
                         <View style = {{alignItems: 'center', justifyContent: 'center'}}>
@@ -116,8 +122,10 @@ export default function App() {
                         </View>   
                     ),
                 }}
-          />
-        </>
+          >
+            {props => <Settings {...props} extraData={user} />}
+          </Tab.Screen>
+          </>
       </Tab.Navigator>
     );
   }
@@ -125,9 +133,22 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-          <Stack.Screen name="COVID-19 Monitoring" component={HomeTabs}/>
-          <Stack.Screen name="Login" component={LoginScreen} />
+        { user ? (
+          <>
+          <Stack.Screen name="COVID-19 Monitoring" options={{headerLeft: () => null}}>
+            {
+              props => <HomeTabs {...props} extraData={user} />
+            }
+          </Stack.Screen>
+          <Stack.Screen name="Login" component={LoginScreen} options={{headerLeft: () => null}}/>
           <Stack.Screen name="Registration" component={RegistrationScreen} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="Login" component={LoginScreen} />
+            <Stack.Screen name="Registration" component={RegistrationScreen} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
