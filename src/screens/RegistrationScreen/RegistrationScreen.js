@@ -61,6 +61,7 @@ export default function RegistrationScreen({navigation}) {
                 keyboardShouldPersistTaps="always">
                 <Image
                     style={styles.logo}
+                    resizeMode="contain"
                     source={require('../../../assets/icon.png')}
                 />
                 <TextInput

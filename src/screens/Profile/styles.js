@@ -1,56 +1,57 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center'
-    },
-    formContainer: {
-        flexDirection: 'row',
-        height: 80,
-        marginTop: 40,
-        marginBottom: 20,
-        flex: 1,
-        paddingTop: 10,
-        paddingBottom: 10,
-        paddingLeft: 30,
-        paddingRight: 30,
-        justifyContent: 'center',
-        alignItems: 'center'
-    },
-    input: {
-        height: 48,
-        borderRadius: 5,
-        overflow: 'hidden',
-        backgroundColor: 'white',
-        paddingLeft: 16,
-        flex: 1,
-        marginRight: 5
-    },
-    button: {
-        height: 47,
-        borderRadius: 5,
-        backgroundColor: '#788eec',
-        width: 80,
-        alignItems: "center",
-        justifyContent: 'center'
-    },
-    buttonText: {
-        color: 'white',
-        fontSize: 16
-    },
-    listContainer: {
-        marginTop: 20,
-        padding: 20,
-    },
-    entityContainer: {
-        marginTop: 16,
-        borderBottomColor: '#cccccc',
-        borderBottomWidth: 1,
-        paddingBottom: 16
-    },
-    entityText: {
-        fontSize: 20,
-        color: '#333333'
-    }
+    header:{
+    backgroundColor: "#788eec",
+    height:200,
+  },
+  avatar: {
+    width: 130,
+    height: 130,
+    borderRadius: 63,
+    borderWidth: 4,
+    borderColor: "white",
+    marginBottom:10,
+    alignSelf:'center',
+    position: 'absolute',
+    marginTop: 130
+  },
+  body:{
+    marginTop:40,
+  },
+  bodyContent: {
+    flex: 1,
+    alignItems: 'center',
+    padding:30,
+  },
+  name:{
+    fontSize:28,
+    color: "#696969",
+    fontWeight: "600",
+    marginTop:30,
+    alignSelf:'center'
+  },
+  info:{
+    fontSize:16,
+    color: "#00BFFF",
+    marginTop:10
+  },
+  description:{
+    fontSize:20,
+    color: "#696969",
+    fontWeight: "600",
+    marginTop:30,
+    alignSelf:'center'
+  },
+  buttonContainer: {
+    marginTop:10,
+    height:45,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom:20,
+    width:250,
+    borderRadius:30,
+    backgroundColor: "#00BFFF",
+  },
 })

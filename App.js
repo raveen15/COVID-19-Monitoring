@@ -5,7 +5,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import { firebase } from './src/firebase/config'
 import { NavigationContainer } from '@react-navigation/native'
 import { createStackNavigator } from '@react-navigation/stack'
-import { LoginScreen, HomeScreen, RegistrationScreen, Settings, Profile, DataHistory } from './src/screens'
+import { LoginScreen, HomeScreen, RegistrationScreen, Settings, Profile, DataHistory, EditInfo } from './src/screens'
 import {decode, encode} from 'base-64'
 if (!global.btoa) {  global.btoa = encode }
 if (!global.atob) { global.atob = decode }
@@ -47,7 +47,7 @@ export default function App() {
 
   function HomeTabs(){
     return(
-      <Tab.Navigator initialRouteName = "Home">
+      <Tab.Navigator initialRouteName>
         <>
           <Tab.Screen name="Home"
           options={{
@@ -135,13 +135,18 @@ export default function App() {
       <Stack.Navigator initialRouteName="Login">
         { user ? (
           <>
-          <Stack.Screen name="COVID-19 Monitoring" options={{headerLeft: () => null}}>
+          <Stack.Screen name="COVID-19 Monitoring" options={{ headerShown: false }}>
             {
               props => <HomeTabs {...props} extraData={user} />
             }
           </Stack.Screen>
           <Stack.Screen name="Login" component={LoginScreen} options={{headerLeft: () => null}}/>
           <Stack.Screen name="Registration" component={RegistrationScreen} />
+          <Stack.Screen name="Edit Personal Information">
+            {
+              props => <EditInfo {...props} extraData={user} />
+            }
+          </Stack.Screen>
           </>
         ) : (
           <>

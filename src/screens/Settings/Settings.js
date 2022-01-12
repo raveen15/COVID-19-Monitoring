@@ -15,17 +15,18 @@ export default function Settings(props) {
 
   const settingsOptions=[
     {title: 'Sensors', subTitle: 'Configure sensors', onPress: () => {}},
-    {title: 'Personal Information', subTitle: 'Edit personal information', onPress: () => {}},
+    {title: 'Personal Information', subTitle: 'Edit personal information', onPress: () => {
+      navigation.navigate("Edit Personal Information")
+    }},
     {title: 'Reset Password', onPress: () => {
       firebase.auth().sendPasswordResetEmail(email)
         .then(function () {
-        alert('Please check your email!')
+        alert('Password reset link has been sent to your email!')
       }).catch(function (e) {
         console.log(e)
       })
     }},
     {title: 'Logout', onPress: () => {
-      
       navigation.navigate("Login")
     }}
   ]

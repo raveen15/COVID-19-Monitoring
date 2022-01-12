@@ -11,7 +11,7 @@ import Container from './Container/index'
 const SettingsComponent = ({settingsOptions, navigation}) => {
   //const navigation = useNavigation();
   return(
-    <ScrollView style={{backgroundColor: colors.white}}>
+    <ScrollView style={{backgroundColor: colors.white, marginTop:50}}>
       {settingsOptions.map(({title, subTitle, onPress}, index) => (
         <TouchableOpacity key={title} onPress={onPress}>
           <View style= {{
