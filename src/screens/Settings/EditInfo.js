@@ -24,6 +24,15 @@ export default function EditInfo(props) {
     const navigation = useNavigation(); 
 
     const onSaveInformation = () => {
+
+        if(fullNameChange == null){
+            fullNameChange = fullName
+        }
+
+        if(emailChange == null){
+            emailChange = email
+        }
+
         firebase.firestore()
             .collection('users')
             .doc(uid)
