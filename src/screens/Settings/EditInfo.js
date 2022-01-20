@@ -1,51 +1,56 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
+import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, Image, Alert } from 'react-native'
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './editInfoStyles';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from '../../firebase/config'
 
 export default function EditInfo(props) {
-    var fullName = props.extraData.fullName
-    var email = props.extraData.email
-    var address = props.extraData.address
-    var phoneNum = props.extraData.phoneNum
-    var dob = props.extraData.dob
-    var healthCardNum = props.extraData.healthCardNum
-
-    const [fullNameChange, setFullNameChange] = useState('');
-    const [emailChange, setEmailChange] = useState('');
-    const [addressChange, setAddressChange] = useState('');
-    const [phoneNumChange, setPhoneNumChange] = useState('');
-    const [dobChange, setDobChange] = useState('');
-    const [healthCardNumChange, sethealthCardNumChange] = useState('');
-
+    
     const uid = props.extraData.id
-    const navigation = useNavigation(); 
+    var docRef = firebase.firestore().collection("users").doc(uid);
+    const [userData, setUserData] = useState('');
+    const navigation = useNavigation();
+
+    const getUser = async() => {
+        const currentUser = await firebase.firestore()
+        .collection('users')
+        .doc(uid)
+        .get()
+        .then((documentSnapshot) => {
+        if( documentSnapshot.exists ) {
+            console.log('User Data', documentSnapshot.data());
+            setUserData(documentSnapshot.data());
+        }
+        })
+    }
+
+    useEffect(() => {
+        getUser();
+        return () => {
+            setState({}); // This worked for me
+        };
+    }, []);
+    
 
     const onSaveInformation = () => {
-
-        if(fullNameChange == null){
-            fullNameChange = fullName
-        }
-
-        if(emailChange == null){
-            emailChange = email
-        }
 
         firebase.firestore()
             .collection('users')
             .doc(uid)
             .update({
-                fullName: fullNameChange,
-                email: emailChange,
-                address: addressChange,
-                phoneNum: phoneNumChange,
-                dob: dobChange,
-                healthCardNum: healthCardNumChange
+                fullName: userData.fullName,
+                address: userData.address,
+                phoneNum: userData.phoneNum,
+                dob: userData.dob,
+                healthCardNum: userData.healthCardNum
             })
             .then(() => {
                 console.log('User information updated!');
+                alert(
+                    'Profile Updated!',
+                    'Your profile has been updated successfully.'
+                );
             });
     }
 
@@ -58,8 +63,8 @@ export default function EditInfo(props) {
                     style={styles.input}
                     placeholder='Full Name'
                     placeholderTextColor="#aaaaaa"
-                    defaultValue={fullName}
-                    onChangeText={(text) => setFullNameChange(text)}
+                    defaultValue={userData ? userData.fullName : ''}
+                    onChangeText={(txt) => setUserData({...userData, fullName: txt})}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -67,8 +72,8 @@ export default function EditInfo(props) {
                     style={styles.input}
                     placeholder='Address'
                     placeholderTextColor="#aaaaaa"
-                    defaultValue={address}
-                    onChangeText={(text) => setAddressChange(text)}
+                    defaultValue={userData ? userData.address : ''}
+                    onChangeText={(txt) => setUserData({...userData, address: txt})}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -76,8 +81,8 @@ export default function EditInfo(props) {
                     style={styles.input}
                     placeholder='Phone Number'
                     placeholderTextColor="#aaaaaa"
-                    defaultValue={phoneNum}
-                    onChangeText={(text) => setPhoneNumChange(text)}
+                    defaultValue={userData ? userData.phoneNum : ''}
+                    onChangeText={(txt) => setUserData({...userData, phoneNum: txt})}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -85,8 +90,8 @@ export default function EditInfo(props) {
                     style={styles.input}
                     placeholder='Date of Birth'
                     placeholderTextColor="#aaaaaa"
-                    defaultValue={dob}
-                    onChangeText={(text) => setDobChange(text)}
+                    defaultValue={userData ? userData.dob : ''}
+                    onChangeText={(txt) => setUserData({...userData, dob: txt})}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
@@ -94,17 +99,8 @@ export default function EditInfo(props) {
                     style={styles.input}
                     placeholder='Health Card Number'
                     placeholderTextColor="#aaaaaa"
-                    defaultValue={healthCardNum}
-                    onChangeText={(text) => sethealthCardNumChange(text)}
-                    underlineColorAndroid="transparent"
-                    autoCapitalize="none"
-                />
-                <TextInput
-                    style={styles.input}
-                    placeholder='E-mail'
-                    placeholderTextColor="#aaaaaa"
-                    defaultValue={email}
-                    onChangeText={(text) => setEmailChange(text)}
+                    defaultValue={userData ? userData.healthCardNum : ''}
+                    onChangeText={(txt) => setUserData({...userData, healthCardNum: txt})}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />

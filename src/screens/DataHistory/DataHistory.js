@@ -28,13 +28,13 @@ export default class App extends React.Component {
         <Swiper style={styles.wrapper} showButtons={true}>
           <View style={styles.slide1}>
                 <VictoryChart domain={{y: [0, 200]}} height={650} width={390} theme={VictoryTheme.material}>
-                  <VictoryLabel text="Heart Rate" x={225} y={30} textAnchor="middle"/>
+                  <VictoryLabel text="Heart Rate" x={200} y={30} textAnchor="middle" style={{ fontWeight: 'bold' }}/>
                   <VictoryLine interpolation="natural" animate={{duration: 2000, onLoad: { duration: 1000}}} data={heartdata} x="x" y="y" />
                 </VictoryChart>
           </View>
           <View style={styles.slide2} showButtons={true}>
             <VictoryChart domain={{y: [0, 100]}} height={650} width={390} theme={VictoryTheme.material}>
-              <VictoryLabel text="Blood Oxygen Level" x={225} y={30} textAnchor="middle"/>
+              <VictoryLabel text="Blood Oxygen Level" x={200} y={30} textAnchor="middle" style={{ fontWeight: 'bold' }}/>
               <VictoryLine interpolation="natural" animate={{duration: 2000, onLoad: { duration: 1000}}} data={oxdata} x="x" y="y" />
             </VictoryChart>
           </View>

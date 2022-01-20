@@ -5,25 +5,33 @@ import { firebase } from '../../firebase/config'
 
 export default function Profile(props) {
 
-    var fullName = props.extraData.fullName
-    var email = props.extraData.email
-    var address = props.extraData.address
-    var phoneNum = props.extraData.phoneNum
-    var dob = props.extraData.dob
-    var healthCardNum = props.extraData.healthCardNum
+    const uid = props.extraData.id
+    var docRef = firebase.firestore().collection("users").doc(uid);
+    const [userData, setUserData] = useState('');
 
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            // console.log("Document data:", doc.data());
+            setUserData(doc.data());
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
 
     return (
         <View style={styles.container}>
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={{uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}}/>
           <View style={styles.body}>
-            <Text style={styles.name} defaultValue={fullName}>{fullName}</Text>
-            <Text style={styles.description}>{email}</Text>
-            <Text style={styles.description}>{address}</Text>
-            <Text style={styles.description}>{phoneNum}</Text>
-            <Text style={styles.description}>{dob}</Text>
-            <Text style={styles.description}>{healthCardNum}</Text>
+            <Text style={styles.name}>{userData ? userData.fullName || '' : ''}</Text>
+            <Text style={styles.description}>{userData ? userData.email || '' : ''}</Text>
+            <Text style={styles.description}>{userData ? userData.address || '' : ''}</Text>
+            <Text style={styles.description}>{userData ? userData.phoneNum || '' : ''}</Text>
+            <Text style={styles.description}>{userData ? userData.dob || '' : ''}</Text>
+            <Text style={styles.description}>{userData ? userData.healthCardNum || '' : ''}</Text>
         </View>
       </View>
     )
