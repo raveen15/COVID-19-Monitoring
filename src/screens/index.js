@@ -4,4 +4,5 @@ export { default as RegistrationScreen } from './RegistrationScreen/Registration
 export { default as DataHistory } from './DataHistory/DataHistory'
 export { default as Profile } from './Profile/Profile'
 export { default as Settings } from './Settings/Settings'
-export { default as EditInfo } from './Settings/EditInfo'
+export { default as EditInfo } from './Settings/EditInfo/EditInfo'
+export { default as SensorConfig } from './Settings/SensorConfig/SensorConfig'

@@ -3,7 +3,7 @@ import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, Image, Ale
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import styles from './editInfoStyles';
 import { useNavigation } from '@react-navigation/native';
-import { firebase } from '../../firebase/config'
+import { firebase } from '../../../firebase/config'
 
 export default function EditInfo(props) {
     

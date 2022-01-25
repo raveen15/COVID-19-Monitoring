@@ -14,7 +14,9 @@ export default function Settings(props) {
   const navigation = useNavigation(); 
 
   const settingsOptions=[
-    {title: 'Sensors', subTitle: 'Configure sensors', onPress: () => {}},
+    {title: 'Sensors', subTitle: 'Configure sensors', onPress: () => {
+      navigation.navigate("Sensor Configuration")
+    }},
     {title: 'Personal Information', subTitle: 'Edit personal information', onPress: () => {
       navigation.navigate("Edit Personal Information")
     }},
@@ -30,6 +32,10 @@ export default function Settings(props) {
       navigation.navigate("Login")
     }}
   ]
-  return <SettingsComponent settingsOptions={settingsOptions} />;
-  
+  return (
+  <>
+  <View style={{marginTop: 50}}/>
+    <SettingsComponent settingsOptions={settingsOptions} />
+  </>
+  );
 }
