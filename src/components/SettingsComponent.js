@@ -22,7 +22,6 @@ const SettingsComponent = ({settingsOptions, navigation}) => {
             <Text style={{fontSize: 17}}>{title}</Text>
             {subTitle && <Text style={{fontSize: 14, opacity: 0.5, color:colors.black, paddingTop: 5}}>{subTitle}</Text>}
           </View>
-
           <View style={{height: 0.5, backgroundColor: colors.grey}}/>
         </TouchableOpacity>
       ))}

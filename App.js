@@ -47,7 +47,18 @@ export default function App() {
 
   function HomeTabs(){
     return(
-      <Tab.Navigator initialRouteName>
+      <Tab.Navigator initialRouteName
+        barStyle={{
+          position: 'absolute',
+          bottom: 25,
+          left: 20,
+          right: 20,
+          elevation: 0,
+          borderRadius: 20,
+          backgroundColor: '#FFFFFF',
+           ...styles.shadow
+        }}
+      >
         <>
           <Tab.Screen name="Home"
           options={{
@@ -57,9 +68,9 @@ export default function App() {
                                 source={require('./assets/home.png')}
                                 resizeMode="contain"
                                 style={{
-                                    width: 20,
-                                    height: 20,
-                                    tintColor: focused ? '#FFFFFF' : '#FFFFFF',
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? '#FF0000' : '#000000',
                                 }}
                             />
                         </View>   
@@ -76,9 +87,9 @@ export default function App() {
                                 source={require('./assets/history.png')}
                                 resizeMode="contain"
                                 style={{
-                                    width: 20,
-                                    height: 20,
-                                    tintColor: focused ? '#FFFFFF' : '#FFFFFF',
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? '#FF0000' : '#000000',
                                 }}
                             />
                         </View>   
@@ -95,9 +106,9 @@ export default function App() {
                                 source={require('./assets/profile.png')}
                                 resizeMode="contain"
                                 style={{
-                                    width: 20,
-                                    height: 20,
-                                    tintColor: focused ? '#FFFFFF' : '#FFFFFF',
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? '#FF0000' : '#000000',
                                 }}
                             />
                         </View>   
@@ -114,9 +125,9 @@ export default function App() {
                                 source={require('./assets/settings.png')}
                                 resizeMode="contain"
                                 style={{
-                                    width: 20,
-                                    height: 20,
-                                    tintColor: focused ? '#FFFFFF' : '#FFFFFF',
+                                    width: 25,
+                                    height: 25,
+                                    tintColor: focused ? '#FF0000' : '#000000',
                                 }}
                             />
                         </View>   
@@ -129,6 +140,19 @@ export default function App() {
       </Tab.Navigator>
     );
   }
+
+  const styles = StyleSheet.create({
+    shadow: {
+      shadowColor: '#7F5DF8',
+      shadowOffset: {
+        width: 0,
+        height: 10,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 3.5,
+      elevation: 5
+    }
+  })
 
   return (
     <NavigationContainer>

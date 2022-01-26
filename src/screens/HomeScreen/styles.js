@@ -3,8 +3,9 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
+        justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 50
+        backgroundColor: "#FFFFFF"
     },
     formContainer: {
         flexDirection: 'row',
@@ -18,6 +19,20 @@ export default StyleSheet.create({
         paddingRight: 30,
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    heartText: {
+        fontSize: 24,
+        fontWeight: "bold",
+        fontFamily: "Arial",
+        padding: 14,
+        marginBottom: 40
+    },
+    oxygenText: {
+        fontSize: 24,
+        fontWeight: "bold",
+        fontFamily: "Arial",
+        padding: 14,
+        marginBottom: 40
     },
     input: {
         height: 48,

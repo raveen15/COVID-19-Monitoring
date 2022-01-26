@@ -35,7 +35,7 @@ export default function Settings(props) {
   return (
   <>
   <View style={{marginTop: 50}}/>
-    <SettingsComponent settingsOptions={settingsOptions} />
+    <SettingsComponent settingsOptions={settingsOptions} /> 
   </>
   );
 }
