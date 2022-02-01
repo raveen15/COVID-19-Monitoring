@@ -35,6 +35,21 @@ export default function HomeScreen(props) {
 
   const anim = useRef(new Animated.Value(1));
 
+  var hour = new Date().getHours();
+  var greeting = " ";
+  if (hour >= 16){
+    greeting = "Good Evening, ";
+  }
+  else if (hour < 16 && hour >= 12){
+    greeting = "Good Afternoon, ";
+  }
+  else if (hour < 12){
+    greeting = "Good Morning, ";
+  }
+
+  var name = userData ? userData.fullName || '' : '';
+  const names = name.split(' ');
+  const firstName = names[0];
   // Listen to changes on the firebase database, specifically the "distance" entry
   useEffect(() => {
     const getValue = database.ref("/Sensor 1");
@@ -95,7 +110,7 @@ export default function HomeScreen(props) {
     return (
       <ScrollView>
         <View style={styles.container}>
-            <Text style={styles.nameText}>Welcome, {userData ? userData.fullName || '' : ''}!</Text>
+            <Text style={styles.nameText}>{greeting}{firstName}</Text>
             <Card>
             <View style={styles.heart}>
             <Animated.View style={{ transform: [{ scale: anim.current }], paddingLeft: 20, marginRight: 'auto'}}>
