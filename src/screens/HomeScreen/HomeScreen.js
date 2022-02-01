@@ -1,19 +1,37 @@
 import React, { useEffect, useState, useRef } from "react";
-import { FlatList, Keyboard,Button, Text, Alert, TextInput, StyleSheet, TouchableOpacity, View, Animated } from 'react-native'
+import { ScrollView, FlatList, Keyboard,Button, Text, Alert, TextInput, StyleSheet, TouchableOpacity, View, Animated } from 'react-native'
 import styles from './styles';
 import { firebase } from '../../firebase/config'
 import {Card} from 'react-native-shadow-cards'
 import {Picker} from '@react-native-picker/picker';
 import { firebaseRealtime } from '../../firebase/configRealtime';
 import { Ionicons } from '@expo/vector-icons';
-import ProgressCircle from 'react-native-progress-circle'
-
+import ProgressCircle from 'react-native-progress-circle';
+import { useFonts } from 'expo-font';
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryLabel } from "victory-native";
+import Swiper from 'react-native-swiper'
 
 export default function HomeScreen(props) {
 
   const database = firebaseRealtime.app().database('https://real-time-covid-monitoring-default-rtdb.firebaseio.com/');
 
   const [sensor, setSensor] = useState(0);
+
+  const uid = props.extraData.id
+    var docRef = firebase.firestore().collection("users").doc(uid);
+    const [userData, setUserData] = useState('');
+
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            // console.log("Document data:", doc.data());
+            setUserData(doc.data());
+        } else {
+            // doc.data() will be undefined in this case
+            console.log("No such document!");
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
 
   const anim = useRef(new Animated.Value(1));
 
@@ -58,26 +76,66 @@ export default function HomeScreen(props) {
       Alert.alert("Low bpm")
     }
 
+    const heartdata =[
+    { x: 1, y: 75 },
+    { x: 2, y: 62 },
+    { x: 3, y: 81 },
+    { x: 4, y: 70 },
+    { x: 5, y: 62 }
+  ];
+
+  const oxdata =[
+    { x: 1, y: 98 },
+    { x: 2, y: 75 },
+    { x: 3, y: 88 },
+    { x: 4, y: 99 },
+    { x: 5, y: 71 }
+  ];
 
     return (
+      <ScrollView>
         <View style={styles.container}>
-            <Animated.View style={{ transform: [{ scale: anim.current }] }}>
+            <Text style={styles.nameText}>Welcome, {userData ? userData.fullName || '' : ''}!</Text>
+            <Card>
+            <View style={styles.heart}>
+            <Animated.View style={{ transform: [{ scale: anim.current }], paddingLeft: 20, marginRight: 'auto'}}>
             <Ionicons name="md-heart" size={64} color="red" />
             </Animated.View>
             <Text style={styles.heartText}> Heart Rate: {sensor.heartRate}bpm</Text>
+            </View>
+            <View style={styles.slide1}>
+                <VictoryChart domain={{y: [30, 190]}} height={200} width={390} theme={VictoryTheme.material}>
+                  <VictoryLabel x={200} y={30} textAnchor="middle" style={{ fontWeight: 'bold' }}/>
+                  <VictoryLine interpolation="natural" animate={{duration: 2000, onLoad: { duration: 1000}}} data={heartdata} x="x" y="y" />
+                </VictoryChart>
+            </View>
+            </Card>
+            <Text style={{padding: 10}}>    </Text>
+            <Card>
+            <View style={styles.progress}>
             <ProgressCircle
-            percent={sensor.oxygenLevel}
-            radius={50}
-            borderWidth={8}
-            color="#3399FF"
-            shadowColor="#999"
-            bgColor="#fff"
-            marginTop="70"
-        >
+              percent={sensor.oxygenLevel}
+              radius={50}
+              borderWidth={8}
+              color="#3399FF"
+              shadowColor="#999"
+              bgColor="#fff"
+            >
+
             <Text style={{ fontSize: 18 }}>{sensor.oxygenLevel}%</Text>
         </ProgressCircle>
+        <Text style={styles.oxygenText}>Blood Oxygen Level: {sensor.oxygenLevel}%</Text>
+        </View>
 
-            <Text style={styles.oxygenText}>Blood Oxygen Level: {sensor.oxygenLevel}%</Text>
+          <View style={styles.slide2} showButtons={true}>
+            <VictoryChart domain={{y: [0, 100]}} height={200} width={390} theme={VictoryTheme.material}>
+              <VictoryLabel x={200} y={30} textAnchor="middle" style={{ fontWeight: 'bold' }}/>
+              <VictoryLine interpolation="natural" animate={{duration: 2000, onLoad: { duration: 1000}}} data={oxdata} x="x" y="y" />
+            </VictoryChart>
+          
+      </View>
+      </Card>
+      <Text style={{padding: 10}}>    </Text>
 
           <Card>
             <Picker
@@ -94,6 +152,7 @@ export default function HomeScreen(props) {
             </Picker>
           </Card>
         </View>
+        </ScrollView>
 
       );
 }

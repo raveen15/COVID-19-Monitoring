@@ -3,9 +3,10 @@ import { StyleSheet } from 'react-native';
 export default StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        paddingTop: 75,
         alignItems: 'center',
-        backgroundColor: "#FFFFFF"
+        backgroundColor: "#FFFFFF",
+        paddingBottom: 150
     },
     formContainer: {
         flexDirection: 'row',
@@ -21,18 +22,29 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     heartText: {
-        fontSize: 24,
+        fontSize: 20,
         fontWeight: "bold",
         fontFamily: "Arial",
         padding: 14,
-        marginBottom: 40
+        marginTop: 10
+    },
+    progress: {
+        paddingLeft: 20,
+        marginRight: 'auto',
+        paddingTop: 10,
+        flexDirection: 'row'
+    },
+    heart: {
+        marginRight: 'auto',
+        paddingTop: 10,
+        flexDirection: 'row'
     },
     oxygenText: {
-        fontSize: 24,
+        fontSize: 16,
         fontWeight: "bold",
         fontFamily: "Arial",
         padding: 14,
-        marginBottom: 40
+        marginTop: 25
     },
     input: {
         height: 48,
@@ -68,5 +80,12 @@ export default StyleSheet.create({
     entityText: {
         fontSize: 20,
         color: '#333333'
-    }
+    },
+    nameText: {
+        fontSize: 24,
+        marginRight: 'auto',
+        fontWeight: 'bold',
+        paddingBottom: 40,
+        paddingLeft: 20
+    },
 })
