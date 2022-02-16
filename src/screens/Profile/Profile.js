@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, Image } from 'react-native'
+import { FlatList, Keyboard, Text, TextInput, TouchableOpacity, View, Image, ProgressBarAndroidComponent } from 'react-native'
+import { Card, Button, Icon } from 'react-native-elements';
 import styles from './styles';
 import { firebase } from '../../firebase/config'
+import { ScrollView } from 'react-native-gesture-handler';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
 export default function Profile(props) {
 
@@ -13,7 +16,7 @@ export default function Profile(props) {
         if (doc.exists) {
             // console.log("Document data:", doc.data());
             setUserData(doc.data());
-        } else {
+        } else { 
             // doc.data() will be undefined in this case
             console.log("No such document!");
         }
@@ -22,17 +25,67 @@ export default function Profile(props) {
     });
 
     return (
+      <ScrollView>
         <View style={styles.container}>
           <View style={styles.header}></View>
           <Image style={styles.avatar} source={{uri: 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'}}/>
           <View style={styles.body}>
-            <Text style={styles.name}>{userData ? userData.fullName || '' : ''}</Text>
-            <Text style={styles.description}>{userData ? userData.email || '' : ''}</Text>
-            <Text style={styles.description}>{userData ? userData.address || '' : ''}</Text>
-            <Text style={styles.description}>{userData ? userData.phoneNum || '' : ''}</Text>
-            <Text style={styles.description}>{userData ? userData.dob || '' : ''}</Text>
-            <Text style={styles.description}>{userData ? userData.healthCardNum || '' : ''}</Text>
+
+          <Card containerStyle={{ marginTop: 30 }}>
+            <View style={styles.cardView}>
+                <Icon name='person' size={40}/>
+                <Text style={styles.cardContent}>
+                {userData ? userData.fullName || '' : ''}
+                </Text>
+            </View>
+          </Card>
+
+          <Card containerStyle={{ marginTop: 10 }}>
+            <View style={styles.cardView}>
+                <Icon name='mail' size={40}/>
+                <Text style={styles.cardContent}>
+                {userData ? userData.email || '' : ''}
+                </Text>
+            </View>
+          </Card>
+
+          <Card containerStyle={{ marginTop: 10 }}>
+            <View style={styles.cardView}>
+                <Icon name='house' size={40}/>
+                <Text style={styles.cardContent}>
+                {userData ? userData.address || '' : ''}
+                </Text> 
+            </View>
+          </Card>
+
+          <Card containerStyle={{ marginTop: 10 }}>
+            <View style={styles.cardView}>
+                <Icon name='phone' size={40}/>
+                <Text style={styles.cardContent}>
+                {userData ? userData.phoneNum || '' : ''}
+                </Text>
+            </View>
+          </Card>
+
+          <Card containerStyle={{ marginTop: 10 }}>
+            <View style={styles.cardView}>
+              <FontAwesome name='birthday-cake' size={40}/>
+                <Text style={styles.cardContent}>
+                {userData ? userData.dob || '' : ''}
+                </Text>
+            </View>
+          </Card>
+
+          <Card containerStyle={{ marginTop: 10 }}>
+            <View style={styles.cardView}>
+            <FontAwesome name='id-card' size={40}/>
+                <Text style={styles.cardContent}>
+                {userData ? userData.healthCardNum || '' : ''}
+                </Text>
+            </View>
+          </Card>
         </View>
       </View>
+      </ScrollView>
     )
 }

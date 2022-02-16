@@ -16,7 +16,7 @@ export default function Settings(props) {
   const settingsOptions=[
     {title: 'Sensors', subTitle: 'Configure sensors', onPress: () => {
       navigation.navigate("Sensor Configuration")
-    }},
+    }}, 
     {title: 'Personal Information', subTitle: 'Edit personal information', onPress: () => {
       navigation.navigate("Edit Personal Information")
     }},

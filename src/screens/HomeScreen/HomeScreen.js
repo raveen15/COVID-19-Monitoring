@@ -9,7 +9,7 @@ import { Ionicons } from '@expo/vector-icons';
 import ProgressCircle from 'react-native-progress-circle';
 import { useFonts } from 'expo-font';
 import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryLabel } from "victory-native";
-import Swiper from 'react-native-swiper'
+import Swiper from 'react-native-swiper' 
 
 export default function HomeScreen(props) {
 
@@ -81,15 +81,15 @@ export default function HomeScreen(props) {
 
   const [selectedLanguage, setSelectedLanguage] = useState();
 
-    if ((sensor.oxygenLevel < 90) & (sensor.heartRate < 50)){
-      Alert.alert("Both the blood oxygen level and the BPM is low")
-    }
-    else if ((sensor.oxygenLevel < 90)&(sensor.heartRate > 50)){
-      Alert.alert("Low blood oxygen level")
-    }
-    else if ((sensor.oxygenLevel > 90)&(sensor.heartRate < 50)){
-      Alert.alert("Low bpm")
-    }
+    // if ((sensor.oxygenLevel < 90) & (sensor.heartRate < 50)){
+    //   Alert.alert("Both the blood oxygen level and the BPM is low")
+    // }
+    // else if ((sensor.oxygenLevel < 90)&(sensor.heartRate > 50)){
+    //   Alert.alert("Low blood oxygen level")
+    // }
+    // else if ((sensor.oxygenLevel > 90)&(sensor.heartRate < 50)){
+    //   Alert.alert("Low bpm")
+    // }
 
     const heartdata =[
     { x: 1, y: 75 },

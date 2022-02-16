@@ -24,10 +24,9 @@ export default StyleSheet.create({
     heartText: {
         fontSize: 20,
         fontWeight: "bold",
-        fontFamily: "Arial",
         padding: 14,
         marginTop: 10
-    },
+    }, 
     progress: {
         paddingLeft: 20,
         marginRight: 'auto',
@@ -42,7 +41,6 @@ export default StyleSheet.create({
     oxygenText: {
         fontSize: 16,
         fontWeight: "bold",
-        fontFamily: "Arial",
         padding: 14,
         marginTop: 25
     },

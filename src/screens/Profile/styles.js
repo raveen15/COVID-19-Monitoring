@@ -1,9 +1,12 @@
 import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-    header:{
-    backgroundColor: "#788eec",
+  header:{
+    backgroundColor: "#FFFFFF",
     height:200,
+  },
+  container: {
+    paddingBottom: 100,
   },
   avatar: {
     width: 130,
@@ -18,6 +21,22 @@ export default StyleSheet.create({
   },
   body:{
     marginTop:40,
+  },
+  cardTitle: {
+    fontSize: 25,
+    fontWeight: "bold",
+    marginLeft: 15
+  },
+  cardContent: {
+    fontSize: 23,
+    marginLeft: 25,
+    fontWeight: "bold"
+  },
+  icons: {
+    fontSize: 100
+  },
+  cardView: {
+    flexDirection: "row",
   },
   bodyContent: {
     flex: 1,
