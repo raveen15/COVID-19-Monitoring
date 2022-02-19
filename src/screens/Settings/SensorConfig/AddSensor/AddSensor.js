@@ -23,7 +23,7 @@ export default function AddSensor(props) {
             .set(data)
             .then(() => {
                 alert("Sensor added!")
-                navigation.navigate('COVID-19 Monitoring', {user: data})
+                navigation.navigate("Login")
             })
             .catch((error) => {
                 alert(error)

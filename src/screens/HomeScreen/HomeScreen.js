@@ -15,7 +15,7 @@ export default function HomeScreen(props) {
 
   const database = firebaseRealtime.app().database('https://real-time-covid-monitoring-default-rtdb.firebaseio.com/');
 
-  const [sensor, setSensor] = useState(0);
+  const [sensor, setSensor] = useState('')
 
   const uid = props.extraData.id
     var docRef = firebase.firestore().collection("users").doc(uid);
@@ -27,11 +27,38 @@ export default function HomeScreen(props) {
             setUserData(doc.data());
         } else {
             // doc.data() will be undefined in this case
-            console.log("No such document!");
+            console.log("No such userData document!");
         }
     }).catch((error) => {
-        console.log("Error getting document:", error);
+        console.log("Error getting userData document:", error);
     });
+
+    /*
+    * Code to retrieve sensor data
+    * For picker and topic name from sensor ID
+    */
+    const [sensorInfo, setSensorInfo] = useState([]);
+    
+    const renderSensorInfo = () => {
+      const collectIdsAndDocs = (doc) => {
+        return { id: doc.id, ...doc.data() };
+      };
+    
+      useEffect(() => {
+        const getSensor = async () => {
+          const snapshot = await firebase.firestore().collection("users").doc(uid).collection('sensors').get();
+          const mySensorList = snapshot.docs.map(collectIdsAndDocs);
+          setSensorInfo(mySensorList);
+        };
+        getSensor();
+        console.log(sensorInfo)
+      }, []);
+
+      return sensorInfo.map((key) => {
+            return <Picker.Item label={key.sensorName.toString()} value={key.sensorID.toString()} key={key.sensorID.toString()}/>
+      });
+      
+    };
 
   const anim = useRef(new Animated.Value(1));
 
@@ -79,7 +106,7 @@ export default function HomeScreen(props) {
 
   }, []);
 
-  const [selectedLanguage, setSelectedLanguage] = useState();
+  const [selectedSensor, setSelectedSensor] = useState();
 
     // if ((sensor.oxygenLevel < 90) & (sensor.heartRate < 50)){
     //   Alert.alert("Both the blood oxygen level and the BPM is low")
@@ -91,7 +118,7 @@ export default function HomeScreen(props) {
     //   Alert.alert("Low bpm")
     // }
 
-    const heartdata =[
+  const heartdata =[
     { x: 1, y: 75 },
     { x: 2, y: 62 },
     { x: 3, y: 81 },
@@ -150,21 +177,15 @@ export default function HomeScreen(props) {
           
       </View>
       </Card>
-      <Text style={{padding: 10}}>    </Text>
-
+      <Text style={{padding: 10}}/>
           <Card>
-            <Picker
-              selectedValue={selectedLanguage}
-              onValueChange={(itemValue, itemIndex) =>
-                setSelectedLanguage(itemValue)
-
-              }>
-              <Picker.Item label="Sensor 1" value="sen1" />
-              <Picker.Item label="Sensor 2" value="sen2" />
-              <Picker.Item label="Sensor 3" value="sen3"/>
-              <Picker.Item label="Sensor 4" value="sen4"/>
-
-            </Picker>
+          <Picker
+            selectedValue={selectedSensor}
+            onValueChange={(itemValue, itemIndex) => {
+              setSelectedSensor(itemValue);
+            }}>
+            {renderSensorInfo()}
+          </Picker>
           </Card>
         </View>
         </ScrollView>
