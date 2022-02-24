@@ -10,7 +10,7 @@ export default function Profile(props) {
 
     const uid = props.extraData.id
     var docRef = firebase.firestore().collection("users").doc(uid);
-    const [userData, setUserData] = useState('');
+    const [userData, setUserData] = useState(''); 
 
     docRef.get().then((doc) => {
         if (doc.exists) {

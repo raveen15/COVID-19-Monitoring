@@ -2,7 +2,7 @@ import React, {Component, useState, useEffect} from "react";
 import { SnapshotViewIOSBase, StyleSheet, View } from "react-native";
 import { VictoryChart, VictoryBar, VictoryPie, VictoryGroup, VictoryTheme, VictoryAxis, VictoryLine } from "victory-native";
 import Svg from 'react-native-svg';
-import { firebaseRealtime } from '/Users/jacksonlandry/COVID-19-Monitoring/src/firebase/configRealtime';
+import { firebaseRealtime } from '../firebase/configRealtime';
 
 export default class Chart extends React.Component {
 
@@ -19,7 +19,7 @@ export default class Chart extends React.Component {
       componentDidMount() {
         const startTime = new Date();
         const time = 0;
-        const num = 0;
+        const num = 65;
 
         this.setState({ data: [{ time, num }], startTime });
 
@@ -35,7 +35,7 @@ export default class Chart extends React.Component {
           const actualTime = new Date();
           var data = snapshot.val();
           let num = data.heartRate;
-          console.log(num)
+          // console.log(num)
           let time = Math.round((actualTime - this.state.startTime) / 1000);
           this.setState({
               data: [...this.state.data, { time, num }]

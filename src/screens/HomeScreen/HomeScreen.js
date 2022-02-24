@@ -9,7 +9,8 @@ import { Ionicons } from '@expo/vector-icons';
 import ProgressCircle from 'react-native-progress-circle';
 import { useFonts } from 'expo-font';
 import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryLabel } from "victory-native";
-import Swiper from 'react-native-swiper' 
+import Swiper from 'react-native-swiper'
+import  Chart  from '../../components/HeartChart';
 
 export default function HomeScreen(props) {
 
@@ -51,7 +52,6 @@ export default function HomeScreen(props) {
           setSensorInfo(mySensorList);
         };
         getSensor();
-        console.log(sensorInfo)
       }, []);
 
       return sensorInfo.map((key) => {
@@ -73,17 +73,30 @@ export default function HomeScreen(props) {
   else if (hour < 12){
     greeting = "Good Morning, ";
   }
+  const [selectedSensor, setSelectedSensor] = useState();
+  // console.log(sensor)
 
   var name = userData ? userData.fullName || '' : '';
   const names = name.split(' ');
   const firstName = names[0];
   // Listen to changes on the firebase database, specifically the "distance" entry
   useEffect(() => {
-    const getValue = database.ref("/Sensor 1");
-    getValue.on("value", snapshot => {
-      let value = snapshot.val();
-      setSensor(value);
-    });
+    const getSensorValue = async () => {
+      let getValue =  database.ref(selectedSensor.toString());
+      getValue.on("value", snapshot => {
+        let value = snapshot.val();
+        setSensor(value);
+        // if ((sensor.oxygenLevel < 90) & (sensor.heartRate < 50)){
+        //   Alert.alert("Both the blood oxygen level and the BPM is low")
+        // }
+        // else if ((sensor.oxygenLevel < 90) & (sensor.heartRate > 50)){
+        //   Alert.alert("Low blood oxygen level")
+        // }
+        // else if ((sensor.oxygenLevel > 90) & (sensor.heartRate < 50)){
+        //   Alert.alert("Low bpm")
+        // }
+      });
+    }
 
     // makes the sequence loop
     Animated.loop(
@@ -104,19 +117,11 @@ export default function HomeScreen(props) {
       ])
     ).start();
 
-  }, []);
+    getSensorValue();
 
-  const [selectedSensor, setSelectedSensor] = useState();
+  }, [selectedSensor]);
 
-    // if ((sensor.oxygenLevel < 90) & (sensor.heartRate < 50)){
-    //   Alert.alert("Both the blood oxygen level and the BPM is low")
-    // }
-    // else if ((sensor.oxygenLevel < 90)&(sensor.heartRate > 50)){
-    //   Alert.alert("Low blood oxygen level")
-    // }
-    // else if ((sensor.oxygenLevel > 90)&(sensor.heartRate < 50)){
-    //   Alert.alert("Low bpm")
-    // }
+    
 
   const heartdata =[
     { x: 1, y: 75 },
@@ -187,6 +192,7 @@ export default function HomeScreen(props) {
             {renderSensorInfo()}
           </Picker>
           </Card>
+        <View><Chart></Chart></View>
         </View>
         </ScrollView>
 
