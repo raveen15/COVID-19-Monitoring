@@ -39,10 +39,10 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     oxygenText: {
-        fontSize: 16,
+        fontSize: 20,
         fontWeight: "bold",
         padding: 14,
-        marginTop: 25
+        marginTop: 10
     },
     input: {
         height: 48,

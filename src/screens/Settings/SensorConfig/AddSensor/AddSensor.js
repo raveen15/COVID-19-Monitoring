@@ -18,7 +18,7 @@ export default function AddSensor(props) {
             sensorID
         };
         const usersRef = firebase.firestore().collection('users').doc(uid).collection('sensors')
-        usersRef
+        usersRef 
             .doc(sensorName)
             .set(data)
             .then(() => {
@@ -32,8 +32,9 @@ export default function AddSensor(props) {
             
     return (
         <View style={styles.container}>
+        <View style={styles.title}/>
             <KeyboardAwareScrollView
-                style={{ flex: 1, width: '100%' }}
+                style={{ flex: 1, width: '100%', backgroundColor: 'white'}}
                 keyboardShouldPersistTaps="always">
                 <TextInput
                     style={styles.input}

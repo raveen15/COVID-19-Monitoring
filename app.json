@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "capstone",
-    "slug": "capstone",
+    "name": "COVID-19 Monitoring",
+    "slug": "COVID-19 Monitoring",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",

@@ -158,20 +158,19 @@ export default function HomeScreen(props) {
             </View>
             </Card>
             <Text style={{padding: 10}}>    </Text>
-            <Card>
-            <View style={styles.progress}>
+        <Card>
+        <View style={styles.progress}>
             <ProgressCircle
               percent={sensor.oxygenLevel}
-              radius={50}
+              radius={40}
               borderWidth={8}
               color="#3399FF"
               shadowColor="#999"
               bgColor="#fff"
             >
-
-            <Text style={{ fontSize: 18 }}>{sensor.oxygenLevel}%</Text>
-        </ProgressCircle>
-        <Text style={styles.oxygenText}>Blood Oxygen Level: {sensor.oxygenLevel}%</Text>
+              <Text style={{ fontSize: 18 }}>{sensor.oxygenLevel}%</Text>
+            </ProgressCircle>
+          <Text style={styles.oxygenText}>Blood Oxygen Level: {sensor.oxygenLevel}%</Text>
         </View>
 
           <View style={styles.slide2} showButtons={true}>
@@ -192,7 +191,6 @@ export default function HomeScreen(props) {
             {renderSensorInfo()}
           </Picker>
           </Card>
-        <View><Chart></Chart></View>
         </View>
         </ScrollView>
 

@@ -56,6 +56,7 @@ export default function EditInfo(props) {
 
     return (
         <View style={styles.container}>
+        <View style={styles.title}/>
             <KeyboardAwareScrollView
                 style={{ flex: 1, width: '100%' }}
                 keyboardShouldPersistTaps="always">

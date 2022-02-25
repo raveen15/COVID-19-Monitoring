@@ -4,10 +4,11 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        marginTop: 50
+        backgroundColor: 'white'
     },
     title: {
-
+        marginTop: 50,
+        backgroundColor: 'white'
     },
     logo: {
         flex: 1,
@@ -28,7 +29,7 @@ export default StyleSheet.create({
         paddingLeft: 16
     },
     button: {
-        backgroundColor: '#788eec',
+        backgroundColor: '#DC143C',
         marginLeft: 30,
         marginRight: 30,
         marginTop: 20,

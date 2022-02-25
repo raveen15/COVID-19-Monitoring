@@ -54,8 +54,10 @@ export default function App() {
           left: 20,
           right: 20,
           elevation: 0,
-          borderRadius: 20,
           backgroundColor: '#FFFFFF',
+          borderRadius: 15,
+          height: 70,
+          justifyContent: 'center',
            ...styles.shadow
         }}
       >
@@ -70,7 +72,7 @@ export default function App() {
                                 style={{
                                     width: 25,
                                     height: 25,
-                                    tintColor: focused ? '#FF0000' : '#000000',
+                                    tintColor: focused ? '#DC143C' : '#000000',
                                 }}
                             />
                         </View>   
@@ -89,7 +91,7 @@ export default function App() {
                                 style={{
                                     width: 25,
                                     height: 25,
-                                    tintColor: focused ? '#FF0000' : '#000000',
+                                    tintColor: focused ? '#DC143C' : '#000000',
                                 }}
                             />
                         </View>   
@@ -108,7 +110,7 @@ export default function App() {
                                 style={{
                                     width: 25,
                                     height: 25,
-                                    tintColor: focused ? '#FF0000' : '#000000',
+                                    tintColor: focused ? '#DC143C' : '#000000',
                                 }}
                             />
                         </View>   
@@ -127,7 +129,7 @@ export default function App() {
                                 style={{
                                     width: 25,
                                     height: 25,
-                                    tintColor: focused ? '#FF0000' : '#000000',
+                                    tintColor: focused ? '#DC143C' : '#000000',
                                 }}
                             />
                         </View>   
