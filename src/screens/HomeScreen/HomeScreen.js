@@ -73,7 +73,7 @@ export default function HomeScreen(props) {
   else if (hour < 12){
     greeting = "Good Morning, ";
   }
-  const [selectedSensor, setSelectedSensor] = useState();
+  const [selectedSensor, setSelectedSensor] = useState('');
   // console.log(sensor)
 
   var name = userData ? userData.fullName || '' : '';
@@ -82,7 +82,7 @@ export default function HomeScreen(props) {
   // Listen to changes on the firebase database, specifically the "distance" entry
   useEffect(() => {
     const getSensorValue = async () => {
-      let getValue =  database.ref(selectedSensor.toString());
+      const getValue = await database.ref(selectedSensor.toString());
       getValue.on("value", snapshot => {
         let value = snapshot.val();
         setSensor(value);
@@ -119,7 +119,7 @@ export default function HomeScreen(props) {
 
     getSensorValue();
 
-  }, [selectedSensor]);
+  }, [selectedSensor, sensor.heartRate]);
 
     
 
