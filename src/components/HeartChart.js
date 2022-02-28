@@ -3,6 +3,7 @@ import { SnapshotViewIOSBase, StyleSheet, View } from "react-native";
 import { VictoryChart, VictoryBar, VictoryPie, VictoryGroup, VictoryTheme, VictoryAxis, VictoryLine } from "victory-native";
 import Svg from 'react-native-svg';
 import { firebaseRealtime } from '../firebase/configRealtime';
+import styles from "../screens/HomeScreen/styles";
 
 export default class Chart extends React.Component {
 
@@ -35,7 +36,7 @@ export default class Chart extends React.Component {
           const actualTime = new Date();
           var data = snapshot.val();
           let num = data.heartRate;
-          // console.log(num)
+          console.log(num)
           let time = Math.round((actualTime - this.state.startTime) / 1000);
           this.setState({
               data: [...this.state.data, { time, num }]
@@ -45,7 +46,7 @@ export default class Chart extends React.Component {
     
       render() {
         return (
-          <VictoryChart width={600} height={470}>
+          <VictoryChart domain={{y: [30, 190]}} width={390} height={200} theme={VictoryTheme.material}>
             <VictoryAxis dependentAxis />
             <VictoryAxis
               tickFormat={t =>
@@ -55,9 +56,8 @@ export default class Chart extends React.Component {
               }
             />
             <VictoryLine
-              style={{
-                data: { stroke: "lime" }
-              }}
+              interpolation="cardinal"
+              animate={{duration: 2000, onLoad: { duration: 1000}}}
               data={this.state.data}
               x="time"
               y="num"
