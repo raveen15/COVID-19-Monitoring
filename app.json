@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "COVID-19 Monitoring",
-    "slug": "COVID-19 Monitoring",
+    "slug": "COVID-19-Monitoring",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "my.app"
     },
     "web": {
       "favicon": "./assets/favicon.png"

@@ -62,7 +62,7 @@ export default function RegistrationScreen({navigation}) {
                 <Image
                     style={styles.logo}
                     resizeMode="contain"
-                    source={require('../../../assets/icon.png')}
+                    source={require('../../../assets/logo.png')}
                 />
                 <TextInput
                     style={styles.input}

@@ -86,15 +86,6 @@ export default function HomeScreen(props) {
       getValue.on("value", snapshot => {
         let value = snapshot.val();
         setSensor(value);
-        // if ((sensor.oxygenLevel < 90) & (sensor.heartRate < 50)){
-        //   Alert.alert("Both the blood oxygen level and the BPM is low")
-        // }
-        // else if ((sensor.oxygenLevel < 90) & (sensor.heartRate > 50)){
-        //   Alert.alert("Low blood oxygen level")
-        // }
-        // else if ((sensor.oxygenLevel > 90) & (sensor.heartRate < 50)){
-        //   Alert.alert("Low bpm")
-        // }
       });
     }
 
@@ -121,7 +112,15 @@ export default function HomeScreen(props) {
 
   }, [selectedSensor, sensor.heartRate]);
 
-    
+  if ((sensor.oxygenLevel < 90) && (sensor.heartRate < 50)){
+    Alert.alert("Both the blood oxygen level and the BPM is low")
+  }
+  else if ((sensor.oxygenLevel < 90) && (sensor.heartRate > 50)){
+    Alert.alert("Low blood oxygen level")
+  }
+  else if ((sensor.oxygenLevel > 90) && (sensor.heartRate < 50)){
+    Alert.alert("Low bpm")
+  }
 
   const heartdata =[
     { x: 1, y: 75 },
