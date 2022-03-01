@@ -2,10 +2,10 @@ import React, {Component, useState, useEffect} from "react";
 import { SnapshotViewIOSBase, StyleSheet, View } from "react-native";
 import { VictoryChart, VictoryBar, VictoryPie, VictoryGroup, VictoryTheme, VictoryAxis, VictoryLine } from "victory-native";
 import Svg from 'react-native-svg';
-import { firebaseRealtime } from '../firebase/configRealtime';
+import { firebaseRealtime } from '/Users/jacksonlandry/COVID-19-Monitoring/src/firebase/configRealtime';
 import styles from "../screens/HomeScreen/styles";
 
-export default class Chart extends React.Component {
+export default class OxChart extends React.Component {
 
     constructor() {
         super();
@@ -20,7 +20,7 @@ export default class Chart extends React.Component {
       componentDidMount() {
         const startTime = new Date();
         const time = 0;
-        const num = 65;
+        const num = 90;
 
         this.setState({ data: [{ time, num }], startTime });
 
@@ -35,7 +35,7 @@ export default class Chart extends React.Component {
         ref.on("value", snapshot => {
           const actualTime = new Date();
           var data = snapshot.val();
-          let num = data.heartRate;
+          let num = data.oxygenLevel;
           console.log(num)
           let time = Math.round((actualTime - this.state.startTime) / 1000);
           this.setState({
@@ -46,7 +46,7 @@ export default class Chart extends React.Component {
     
       render() {
         return (
-          <VictoryChart domain={{y: [30, 190]}} width={390} height={200} theme={VictoryTheme.material}>
+          <VictoryChart domain={{y: [0, 120]}} width={390} height={200} theme={VictoryTheme.material}>
             <VictoryAxis dependentAxis />
             <VictoryAxis
               tickFormat={t =>
