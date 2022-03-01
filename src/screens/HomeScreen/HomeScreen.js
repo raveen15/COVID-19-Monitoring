@@ -90,6 +90,26 @@ export default function HomeScreen(props) {
       });
     }
 
+    const setDeleteSensorFirebase = async () => {
+      docRef.collection('selectedSensor') 
+        .get()
+        .then((querySnapshot) => {
+          Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
+        })
+    }
+
+    const setSensorFirebase = async () => {
+      const data = {
+        selectedSensor,
+      };
+      docRef.collection('selectedSensor') 
+        .doc(selectedSensor)
+        .set(data)
+        .catch((error) => {
+            alert(error)
+      });
+    }
+
     // makes the sequence loop
     Animated.loop(
       // runs given animations in a sequence
@@ -110,6 +130,8 @@ export default function HomeScreen(props) {
     ).start();
 
     getSensorValue();
+    setDeleteSensorFirebase();
+    setSensorFirebase();
 
   }, [selectedSensor, sensor.heartRate]);
 
