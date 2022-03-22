@@ -5,21 +5,26 @@ import styles from './addSensorStyles';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from '../../../../firebase/config'
 
+var incrementSensor = 0
+
 export default function AddSensor(props) {
 
     const [sensorName, setSensorName] = useState('')
     const [sensorID, setSensorID] = useState('')
     const navigation = useNavigation();
     const uid = props.extraData.id
+    
 
     const onAddSensorPress = () => {
+        incrementSensor++;
         const data = {
             sensorName,
-            sensorID
+            sensorID,
+            incrementSensor
         };
         const usersRef = firebase.firestore().collection('users').doc(uid).collection('sensors')
         usersRef 
-            .doc(sensorName)
+            .doc(incrementSensor.toString())
             .set(data)
             .then(() => {
                 alert("Sensor added!")

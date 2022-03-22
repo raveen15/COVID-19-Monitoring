@@ -48,7 +48,7 @@ export default function HomeScreen(props) {
     
       useEffect(() => {
         const getSensor = async () => {
-          const snapshot = await firebase.firestore().collection("users").doc(uid).collection('sensors').get();
+          const snapshot = await firebase.firestore().collection("users").doc(uid).collection('sensors').get('sensorName');
           const mySensorList = snapshot.docs.map(collectIdsAndDocs);
           setSensorInfo(mySensorList);
         };
@@ -90,25 +90,25 @@ export default function HomeScreen(props) {
       });
     }
 
-    const setDeleteSensorFirebase = async () => {
-      docRef.collection('selectedSensor') 
-        .get()
-        .then((querySnapshot) => {
-          Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
-        })
-    }
+    // const setDeleteSensorFirebase = async () => {
+    //   docRef.collection('selectedSensor') 
+    //     .get()
+    //     .then((querySnapshot) => {
+    //       Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
+    //     })
+    // }
 
-    const setSensorFirebase = async () => {
-      const data = {
-        selectedSensor,
-      };
-      docRef.collection('selectedSensor') 
-        .doc(selectedSensor)
-        .set(data)
-        .catch((error) => {
-            alert(error)
-      });
-    }
+    // const setSensorFirebase = async () => {
+    //   const data = {
+    //     selectedSensor,
+    //   };
+    //   docRef.collection('selectedSensor') 
+    //     .doc(selectedSensor)
+    //     .set(data)
+    //     .catch((error) => {
+    //         alert(error)
+    //   });
+    // }
 
     // makes the sequence loop
     Animated.loop(
@@ -130,10 +130,42 @@ export default function HomeScreen(props) {
     ).start();
 
     getSensorValue();
-    setDeleteSensorFirebase();
-    setSensorFirebase();
 
   }, [selectedSensor, sensor.heartRate]);
+
+  useEffect(() => {
+    
+    const setDeleteSensorFirebase = async () => {
+      docRef.collection('selectedSensor') 
+        .get()
+        .then((querySnapshot) => {
+          Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
+        })
+    }
+
+    const setSensorFirebase = async () => {
+      const data = {
+        selectedSensor,
+      };
+      docRef.collection('selectedSensor') 
+        .get()
+        .then((querySnapshot) => {
+          Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
+      })
+      docRef.collection('selectedSensor') 
+        .doc(selectedSensor)
+        .set(data)
+        .catch((error) => {
+            alert(error)
+      });
+    }
+
+    // setDeleteSensorFirebase();
+    setSensorFirebase();
+
+  }, [selectedSensor]);
+
+
 
     return (
       <ScrollView>
