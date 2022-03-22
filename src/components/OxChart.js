@@ -2,8 +2,13 @@ import React, {Component, useState, useEffect} from "react";
 import { SnapshotViewIOSBase, StyleSheet, View } from "react-native";
 import { VictoryChart, VictoryBar, VictoryPie, VictoryGroup, VictoryTheme, VictoryAxis, VictoryLine } from "victory-native";
 import Svg from 'react-native-svg';
-import { firebaseRealtime } from '/Users/jacksonlandry/COVID-19-Monitoring/src/firebase/configRealtime';
+import { firebaseRealtime } from '../firebase/configRealtime';
 import styles from "../screens/HomeScreen/styles";
+import { firebase } from '../firebase/config'
+import { getAuth } from "firebase/auth";
+
+var id = 0;
+const user = 0;
 
 export default class OxChart extends React.Component {
 
@@ -21,6 +26,21 @@ export default class OxChart extends React.Component {
         const startTime = new Date();
         const time = 0;
         const num = 90;
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        const uid = user.uid;
+        const idRef = firebase.firestore().collection("users").doc(uid).collection("sensors").doc("1");
+        idRef.get().then(function(doc) {
+          if (doc.exists) {
+          console.log("Document data:", doc.data());
+          id = doc.data().sensorID;
+          } else {
+            console.log("No such document!");
+          }
+        }).catch(function(error) {
+          console.log("Error getting document:", error);
+        });
 
         this.setState({ data: [{ time, num }], startTime });
 
@@ -31,7 +51,7 @@ export default class OxChart extends React.Component {
       // and add it to data. not sure if this is right approach
       getRandNum = () => {
         const database = firebaseRealtime.app().database('https://real-time-covid-monitoring-default-rtdb.firebaseio.com/');
-        var ref = database.ref("/Sensor 1");
+        var ref = database.ref(id.toString());
         ref.on("value", snapshot => {
           const actualTime = new Date();
           var data = snapshot.val();

@@ -4,6 +4,11 @@ import { VictoryChart, VictoryBar, VictoryPie, VictoryGroup, VictoryTheme, Victo
 import Svg from 'react-native-svg';
 import { firebaseRealtime } from '../firebase/configRealtime';
 import styles from "../screens/HomeScreen/styles";
+import { firebase } from '../firebase/config'
+import { getAuth } from "firebase/auth";
+
+var id = 0;
+const user = 0;
 
 export default class Chart extends React.Component {
 
@@ -21,17 +26,33 @@ export default class Chart extends React.Component {
         const startTime = new Date();
         const time = 0;
         const num = 65;
+        const auth = getAuth();
+        const user = auth.currentUser;
+
+        const uid = user.uid;
+        const idRef = firebase.firestore().collection("users").doc(uid).collection("sensors").doc("1");
+        idRef.get().then(function(doc) {
+          if (doc.exists) {
+          console.log("Document data:", doc.data());
+          id = doc.data().sensorID;
+          } else {
+            console.log("No such document!");
+          }
+        }).catch(function(error) {
+          console.log("Error getting document:", error);
+        });
 
         this.setState({ data: [{ time, num }], startTime });
 
         setInterval(this.getRandNum, 5000);
       }
     
-      // get rand num from 1-5 along with current time,
-      // and add it to data. not sure if this is right approach
+      // get num from firebase every 5 seconds and create new data point on the live graph
       getRandNum = () => {
         const database = firebaseRealtime.app().database('https://real-time-covid-monitoring-default-rtdb.firebaseio.com/');
-        var ref = database.ref("/Sensor 1");
+
+        var ref = database.ref(id.toString());
+        console.log(user.uid);
         ref.on("value", snapshot => {
           const actualTime = new Date();
           var data = snapshot.val();
