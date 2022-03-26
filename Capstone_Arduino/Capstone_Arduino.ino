@@ -15,13 +15,13 @@
 #include <addons/RTDBHelper.h>
 
 /* 1. Define the WiFi credentials */
-#define WIFI_SSID "OnePlus 6T"
-#define WIFI_PASSWORD "Raveenth15"
+#define WIFI_SSID "********"
+#define WIFI_PASSWORD "********"
 
 //For the following credentials, see examples/Authentications/SignInAsUser/EmailPassword/EmailPassword.ino
 
 /* 2. Define the API Key */
-#define API_KEY "AIzaSyA4ECXP8Fx1OYdEqV_Xip6D75c5jdlHv0g"
+#define API_KEY "********"
 
 /* 3. Define the RTDB URL */
 #define DATABASE_URL "https://real-time-covid-monitoring-default-rtdb.firebaseio.com" //<databaseName>.firebaseio.com or \
@@ -29,8 +29,8 @@
 
 /* 4. Define the user Email and password that alreadey registerd or added in
  * your project */
-#define USER_EMAIL "raveenth15@gmail.com"
-#define USER_PASSWORD "123456"
+#define USER_EMAIL "********"
+#define USER_PASSWORD "********"
 
 //Define Firebase Data object
 FirebaseData fbdo;
@@ -102,7 +102,7 @@ void setup()
   pox.setOnBeatDetectedCallback(onBeatDetected);
 }
 
-void leerDatos(){
+void sendSensorData(){
   int bpm = pox.getHeartRate();
   int SpO2 = pox.getSpO2();
 
@@ -127,7 +127,7 @@ void loop()
     if(currentMillis-previousMillis>=REPORTING_PERIOD_MS)
     {
       pox.shutdown();
-      leerDatos();
+      sendSensorData();
       pox.resume();
       previousMillis=currentMillis;
     }
