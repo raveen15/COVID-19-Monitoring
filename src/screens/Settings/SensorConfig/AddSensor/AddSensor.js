@@ -27,7 +27,7 @@ export default function AddSensor(props) {
             .doc(incrementSensor.toString())
             .set(data)
             .then(() => {
-                alert("Sensor added!")
+                alert("Success!", "Sensor added! Please login again.")
                 navigation.navigate("Login")
             })
             .catch((error) => {

@@ -39,7 +39,7 @@ export default StyleSheet.create({
         flexDirection: 'row'
     },
     oxygenText: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: "bold",
         padding: 14,
         marginTop: 10

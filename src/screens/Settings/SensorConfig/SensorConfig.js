@@ -17,8 +17,8 @@ export default function SensorConfig(props) {
     {title: 'Add Sensor', subTitle: 'Add a new sensor with the given sensor ID', onPress: () => {
         navigation.navigate("Add Sensor")
     }},
-    {title: 'Edit Sensor', subTitle: 'Edit sensor name and ID', onPress: () => {
-        navigation.navigate("Edit Sensor")
+    {title: 'Delete Sensor', subTitle: 'Delete a sensor from the following list', onPress: () => {
+        navigation.navigate("Delete Sensor")
     }}
   ]
   return <SettingsComponent settingsOptions={settingsOptions} />;

@@ -183,7 +183,7 @@ export default function App() {
               props => <AddSensor {...props} extraData={user} />
             }
           </Stack.Screen>
-          <Stack.Screen name="Edit Sensor">
+          <Stack.Screen name="Delete Sensor">
             {
               props => <EditSensor {...props} extraData={user} />
             }

@@ -8,10 +8,11 @@ import { firebaseRealtime } from '../../firebase/configRealtime';
 import { Ionicons } from '@expo/vector-icons';
 import ProgressCircle from 'react-native-progress-circle';
 import { useFonts } from 'expo-font';
-import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryLabel } from "victory-native";
+import { VictoryBar, VictoryChart, VictoryTheme, VictoryLine, VictoryLabel, TextSize } from "victory-native";
 import Swiper from 'react-native-swiper'
 import  Chart  from '../../components/HeartChart';
 import  OxChart  from '../../components/OxChart';
+import * as Speech from 'expo-speech';
 
 export default function HomeScreen(props) {
 
@@ -65,10 +66,10 @@ export default function HomeScreen(props) {
 
   var hour = new Date().getHours();
   var greeting = " ";
-  if (hour >= 16){
+  if (hour >= 18){
     greeting = "Good Evening, ";
   }
-  else if (hour < 16 && hour >= 12){
+  else if (hour < 18 && hour >= 12){
     greeting = "Good Afternoon, ";
   }
   else if (hour < 12){
@@ -89,26 +90,6 @@ export default function HomeScreen(props) {
         setSensor(value);
       });
     }
-
-    // const setDeleteSensorFirebase = async () => {
-    //   docRef.collection('selectedSensor') 
-    //     .get()
-    //     .then((querySnapshot) => {
-    //       Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
-    //     })
-    // }
-
-    // const setSensorFirebase = async () => {
-    //   const data = {
-    //     selectedSensor,
-    //   };
-    //   docRef.collection('selectedSensor') 
-    //     .doc(selectedSensor)
-    //     .set(data)
-    //     .catch((error) => {
-    //         alert(error)
-    //   });
-    // }
 
     // makes the sequence loop
     Animated.loop(
@@ -131,39 +112,21 @@ export default function HomeScreen(props) {
 
     getSensorValue();
 
-  }, [selectedSensor, sensor.heartRate]);
-
-  useEffect(() => {
+    if(sensor.heartRate <= 45 && sensor.oxygenLevel >= 91){
+      Alert.alert("Warning!", "Heart rate is at " + sensor.heartRate + " BPM");
+      Speech.speak("Warning! Low heart rate!")
+    }
+    else if(sensor.heartRate >= 46 && sensor.oxygenLevel <= 90){
+      Alert.alert("Warning!", "Oxygen Level is at " + sensor.oxygenLevel + "%");
+      Speech.speak("Warning! Low oxygen level!")
+    }
+    else if(sensor.heartRate <= 45 && sensor.oxygenLevel <= 90){
+      Alert.alert("Warning!", "Heart rate is at " + sensor.heartRate + " BPM and Oxygen Level is at " + sensor.oxygenLevel + "%");
+      Speech.speak("Warning! Low heart rate and oxygen level!")
+    }
     
-    const setDeleteSensorFirebase = async () => {
-      docRef.collection('selectedSensor') 
-        .get()
-        .then((querySnapshot) => {
-          Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
-        })
-    }
 
-    const setSensorFirebase = async () => {
-      const data = {
-        selectedSensor,
-      };
-      docRef.collection('selectedSensor') 
-        .get()
-        .then((querySnapshot) => {
-          Promise.all(querySnapshot.docs.map((d) => d.ref.delete()));
-      })
-      docRef.collection('selectedSensor') 
-        .doc(selectedSensor)
-        .set(data)
-        .catch((error) => {
-            alert(error)
-      });
-    }
-
-    // setDeleteSensorFirebase();
-    setSensorFirebase();
-
-  }, [selectedSensor]);
+  }, [selectedSensor, sensor.heartRate, sensor.oxygenLevel]);
 
 
 
@@ -171,7 +134,7 @@ export default function HomeScreen(props) {
       <ScrollView>
         <View style={styles.container}>
             <Text style={styles.nameText}>{greeting}{firstName}</Text>
-            <Card>
+          <Card>
             <View style={styles.heart}>
             <Animated.View style={{ transform: [{ scale: anim.current }], paddingLeft: 20, marginRight: 'auto'}}>
             <Ionicons name="md-heart" size={64} color="red" />
@@ -181,25 +144,23 @@ export default function HomeScreen(props) {
             <View style={styles.slide1}>
                 <Chart></Chart>
             </View>
-            </Card>
+          </Card>
             <Text style={{padding: 10}}>    </Text>
-            <Card>
-            <View style={styles.progress}>
+        <Card>
+        <View style={styles.progress}>
             <ProgressCircle
               percent={sensor.oxygenLevel}
-              radius={50}
-              borderWidth={8}
+              radius={40}
+              borderWidth={7}
               color="#3399FF"
               shadowColor="#999"
               bgColor="#fff"
             >
-
-            <Text style={{ fontSize: 18 }}>{sensor.oxygenLevel}%</Text>
+        <Text style={{ fontSize: 18 }}>{sensor.oxygenLevel}%</Text>
         </ProgressCircle>
         <Text style={styles.oxygenText}>Blood Oxygen Level: {sensor.oxygenLevel}%</Text>
         </View>
-
-          <View style={styles.slide2} showButtons={true}>
+          <View>
             <OxChart></OxChart>
           </View>
       </Card>
