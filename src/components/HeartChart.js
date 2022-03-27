@@ -33,7 +33,7 @@ export default class Chart extends React.Component {
         const idRef = firebase.firestore().collection("users").doc(uid).collection("sensors").doc("1");
         idRef.get().then(function(doc) {
           if (doc.exists) {
-          console.log("Document data:", doc.data());
+          // console.log("Document data:", doc.data());
           id = doc.data().sensorID;
           } else {
             console.log("No such document!");
@@ -57,7 +57,7 @@ export default class Chart extends React.Component {
           const actualTime = new Date();
           var data = snapshot.val();
           let num = data.heartRate;
-          console.log(num)
+          // console.log(num)
           let time = Math.round((actualTime - this.state.startTime) / 1000);
           this.setState({
               data: [...this.state.data, { time, num }]
