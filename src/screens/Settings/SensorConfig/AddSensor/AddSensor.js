@@ -5,7 +5,7 @@ import styles from './addSensorStyles';
 import { useNavigation } from '@react-navigation/native';
 import { firebase } from '../../../../firebase/config'
 
-var incrementSensor = 0
+var incrementSensor = 1
 
 export default function AddSensor(props) {
 

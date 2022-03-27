@@ -10,9 +10,11 @@ export default function RegistrationScreen({navigation}) {
     const [address, setAddress] = useState('')
     const [phoneNum, setPhoneNum] = useState('')
     const [dob, setDob] = useState('')
-    const [healthCardNum, setHealthCardNum] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+    const [sensorName, setSensorName] = useState('')
+    const [sensorID, setSensorID] = useState('')
+    var incrementSensor = 1
 
     const onFooterLinkPress = () => {
         navigation.navigate('Login')
@@ -36,8 +38,20 @@ export default function RegistrationScreen({navigation}) {
                     address,
                     phoneNum,
                     dob,
-                    healthCardNum,
                 };
+
+                const sensData = {
+                    sensorName,
+                    sensorID,
+                    incrementSensor
+                };
+                const usersSensRef = firebase.firestore().collection('users').doc(uid).collection('sensors')
+                usersSensRef 
+                .doc(incrementSensor.toString())
+                .set(sensData)
+                .catch((error) => {
+                    alert(error)
+                });
                 const usersRef = firebase.firestore().collection('users')
                 usersRef
                     .doc(uid)
@@ -102,10 +116,19 @@ export default function RegistrationScreen({navigation}) {
                 />
                 <TextInput
                     style={styles.input}
-                    placeholder='Health Card Number'
+                    placeholder='Sensor Name'
                     placeholderTextColor="#aaaaaa"
-                    onChangeText={(text) => setHealthCardNum(text)}
-                    value={healthCardNum}
+                    onChangeText={(text) => setSensorName(text)}
+                    value={sensorName}
+                    underlineColorAndroid="transparent"
+                    autoCapitalize="none"
+                />
+                <TextInput
+                    style={styles.input}
+                    placeholder='Sensor ID'
+                    placeholderTextColor="#aaaaaa"
+                    onChangeText={(text) => setSensorID(text)}
+                    value={sensorID}
                     underlineColorAndroid="transparent"
                     autoCapitalize="none"
                 />
